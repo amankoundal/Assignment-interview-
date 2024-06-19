@@ -5,7 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AddCandidatePage extends ActionClass {
     public AddCandidatePage(WebDriver driver) {
@@ -38,12 +42,29 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(id = "candidateDetail-skillSet")
     private WebElement skillSet;
 
-    @FindBy(xpath = "//span[contains(text(),'Drag and drop or')]")
-    private WebElement uploadCv;
+    @FindBy(xpath = "//label[@class='dotted-input form-control-dark mr-2']")
+    private WebElement fileUpload;
 
     @FindBy(xpath = "//span[@class='mdc-list-item__primary-text']")
     private WebElement searchResult;
 
+    @FindBy(id="candidateDetail-totalWorkExperience_years")
+    private WebElement expYear;
+
+    @FindBy(id="candidateDetail-totalWorkExperience_months")
+    private WebElement expMonth;
+
+    @FindBy(id="candidateDetail-relavantWorkExperience_years")
+    private WebElement relevantExpYear;
+
+    @FindBy(id="candidateDetail-relavantWorkExperience_months")
+    private WebElement relevantExpMonth;
+
+    @FindBy(id="Last Appraisal Date")
+    private WebElement lastAppraisal;
+
+    @FindBy(xpath = "//button[normalize-space()='2023']")
+    private WebElement selectYear;
     public void enterCandidateName(String cadName) {
         name.sendKeys(cadName);
     }
@@ -69,13 +90,13 @@ public class AddCandidatePage extends ActionClass {
 
     public void enterAppliedForTeam(String text2) throws InterruptedException {
         appliedFor.sendKeys(text2);
-        waitElementVisible(searchResult,7);
+        waitElementVisible(searchResult,8);
         searchResult.click();
     }
 
     public void enterDesignation(String text3) throws InterruptedException {
         designation.sendKeys(text3);
-        waitElementVisible(searchResult,7);
+        waitElementVisible(searchResult,8);
        searchResult.click();
     }
 
@@ -84,13 +105,43 @@ public class AddCandidatePage extends ActionClass {
     }
 
     public void setUploadCv() throws InterruptedException {
+
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement fileUploadInput = wait.until(ExpectedConditions.elementToBeClickable(fileUpload));
+        String filePath = System.getProperty("user.dir") + "/src/main/java/Resource/functionalsample.pdf";
+        fileUploadInput.sendKeys(filePath);
+    }
+
+    public void addExperienceYear(String text) throws InterruptedException {
+      waitElementVisible(expYear,5);
+        Select dropdown = new Select(expYear);
+        dropdown.selectByVisibleText(text);
+    }
+
+    public void addExperienceMonth(String text) throws InterruptedException {
+        Select dropdown = new Select(expMonth);
         Thread.sleep(1000);
-        String filePath="/Users/amankoundal/Downloads/functionalsample.pdf";
-        uploadCv.sendKeys(filePath);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        dropdown.selectByVisibleText(text);
+    }
+
+    public void addRelevantExpYear(String text) throws InterruptedException {
+        Select dropdown = new Select(relevantExpYear);
+        Thread.sleep(1000);
+        dropdown.selectByVisibleText(text);
+    }
+
+    public void addRelevantExpMonth(String text) throws InterruptedException {
+        Select dropdown = new Select(relevantExpMonth);
+        Thread.sleep(1000);
+        dropdown.selectByVisibleText(text);
+    }
+
+    public void setLastAppraisal(String year, String month, String day){
+        lastAppraisal.click();
+        selectYear.click();
+        driver.findElement(By.xpath("//span[normalize-space()='"+year+"']")).click();
+        driver.findElement(By.xpath("//span[normalize-space()='"+month+"']")).click();
+        driver.findElement(By.xpath("//span[normalize-space()='"+day+"']")).click();
     }
 }

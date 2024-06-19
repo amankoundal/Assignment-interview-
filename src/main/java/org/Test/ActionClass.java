@@ -29,8 +29,9 @@ public class ActionClass {
 
     }
 
-    public void scrollPage(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(a,b)", "");
+    public void scrollPage() throws InterruptedException {
+        JavascriptExecutor js=  (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,600)") ;
+        Thread.sleep(2000);
     }
 }
