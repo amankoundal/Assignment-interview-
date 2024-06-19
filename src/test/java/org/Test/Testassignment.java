@@ -33,16 +33,18 @@ public class Testassignment extends Baseclass {
         addCandidatePage.enterCandidateEmail(input.get("candidateEmail"));
         addCandidatePage.enterCandidatePhoneNO(input.get("candidatePhoneNo"));
         addCandidatePage.selectVerify();
-//        addCandidatePage.selectPlaform(input.get("platform"));
-//        addCandidatePage.enterAppliedForTeam(input.get("appliedForTeam"));
-//        addCandidatePage.enterDesignation(input.get("designation"));
-//        addCandidatePage.enterSkillSet(input.get("skillset"));
-      addCandidatePage.setUploadCv();
-      //  addCandidatePage.setLastAppraisal(input.get("lastAppraisalYear"),input.get("lastAppraisalMonth"), input.get("lastAppraisalDay"));
-//        addCandidatePage.addExperienceYear(input.get("addExperienceYear"));
-//        addCandidatePage.addExperienceMonth(input.get("addExperienceMonth"));
-//        addCandidatePage.addRelevantExpYear(input.get("addRelevantExpYear"));
-//        addCandidatePage.addRelevantExpMonth(input.get("addRelevantExpMonth"));
+        addCandidatePage.selectPlaform(input.get("platform"));
+        addCandidatePage.enterAppliedForTeam(input.get("appliedForTeam"));
+        addCandidatePage.enterDesignation(input.get("designation"));
+        addCandidatePage.enterSkillSet(input.get("skillset"));
+// not working
+      //addCandidatePage.setUploadCv();
+        addCandidatePage.addExperienceYear(input.get("addExperienceYear"));
+        addCandidatePage.addExperienceMonth(input.get("addExperienceMonth"));
+        addCandidatePage.addRelevantExpYear(input.get("addRelevantExpYear"));
+        addCandidatePage.addRelevantExpMonth(input.get("addRelevantExpMonth"));
+// not working
+        //addCandidatePage.setLastAppraisal(input.get("lastAppraisalYear"),input.get("lastAppraisalMonth"), input.get("lastAppraisalDay"));
 
 
 
