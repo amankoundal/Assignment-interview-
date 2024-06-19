@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class AddCandidatePage extends ActionClass {
     public AddCandidatePage(WebDriver driver) {
@@ -42,30 +43,32 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(id = "candidateDetail-skillSet")
     private WebElement skillSet;
 
-    @FindBy(xpath = "//label[@class='dotted-input form-control-dark mr-2']")
+    @FindBy(id = "upload-resume")
     private WebElement fileUpload;
 
     @FindBy(xpath = "//span[@class='mdc-list-item__primary-text']")
     private WebElement searchResult;
 
-    @FindBy(id="candidateDetail-totalWorkExperience_years")
+    @FindBy(id = "candidateDetail-totalWorkExperience_years")
     private WebElement expYear;
 
-    @FindBy(id="candidateDetail-totalWorkExperience_months")
+    @FindBy(id = "candidateDetail-totalWorkExperience_months")
     private WebElement expMonth;
 
-    @FindBy(id="candidateDetail-relavantWorkExperience_years")
+    @FindBy(id = "candidateDetail-relavantWorkExperience_years")
     private WebElement relevantExpYear;
 
-    @FindBy(id="candidateDetail-relavantWorkExperience_months")
+    @FindBy(id = "candidateDetail-relavantWorkExperience_months")
     private WebElement relevantExpMonth;
 
-    @FindBy(id="Last Appraisal Date")
+    @FindBy(id = "Last Appraisal Date")
     private WebElement lastAppraisal;
 
     @FindBy(xpath = "//button[normalize-space()='2023']")
     private WebElement selectYear;
+
     public void enterCandidateName(String cadName) {
+        waitElementVisible(name, 10);
         name.sendKeys(cadName);
     }
 
@@ -83,38 +86,35 @@ public class AddCandidatePage extends ActionClass {
         scrollPage();
     }
 
-    public void selectPlaform(String text){
+    public void selectPlaform(String text) {
         Select dropdown = new Select(platform);
         dropdown.selectByVisibleText(text);
     }
 
     public void enterAppliedForTeam(String text2) throws InterruptedException {
         appliedFor.sendKeys(text2);
-        waitElementVisible(searchResult,8);
+        waitElementVisible(searchResult, 8);
         searchResult.click();
     }
 
     public void enterDesignation(String text3) throws InterruptedException {
         designation.sendKeys(text3);
-        waitElementVisible(searchResult,8);
-       searchResult.click();
+        waitElementVisible(searchResult, 8);
+        searchResult.click();
     }
 
-    public void enterSkillSet(String text4){
+    public void enterSkillSet(String text4) {
         skillSet.sendKeys(text4);
     }
 
     public void setUploadCv() throws InterruptedException {
 
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement fileUploadInput = wait.until(ExpectedConditions.elementToBeClickable(fileUpload));
         String filePath = System.getProperty("user.dir") + "/src/main/java/Resource/functionalsample.pdf";
-        fileUploadInput.sendKeys(filePath);
+        fileUpload.sendKeys(filePath);
     }
 
     public void addExperienceYear(String text) throws InterruptedException {
-      waitElementVisible(expYear,5);
+        waitElementVisible(expYear, 5);
         Select dropdown = new Select(expYear);
         dropdown.selectByVisibleText(text);
     }
@@ -137,11 +137,31 @@ public class AddCandidatePage extends ActionClass {
         dropdown.selectByVisibleText(text);
     }
 
-    public void setLastAppraisal(String year, String month, String day){
+    public void setLastAppraisal() {
         lastAppraisal.click();
-        selectYear.click();
-        driver.findElement(By.xpath("//span[normalize-space()='"+year+"']")).click();
-        driver.findElement(By.xpath("//span[normalize-space()='"+month+"']")).click();
-        driver.findElement(By.xpath("//span[normalize-space()='"+day+"']")).click();
+    }
+
+    public void selectYearMonthAndDay() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitElementVisible(lastAppraisal,10); // Replace with the actual ID
+        lastAppraisal.click();
+
+
+        while (true) {
+            WebElement monthYearElement = driver.findElement(By.xpath("(//div[@class='p-datepicker-title ng-tns-c2639595829-5'])[1]"));
+            String monthYear = monthYearElement.getText();
+
+            if (monthYear.contains("June 2023")) {
+                break;
+            } else {
+                WebElement nextButton = driver.findElement(By.xpath("//button[@class='p-datepicker-next']"));
+                nextButton.click();
+                wait.until(ExpectedConditions.stalenessOf(monthYearElement)); //
+            }
+        }
+
+        // Select the date (June 5, 2023)
+        WebElement dateElement = driver.findElement(By.xpath("//a[text()='5']"));
+        dateElement.click();
     }
 }

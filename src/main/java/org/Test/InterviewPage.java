@@ -15,14 +15,15 @@ public class InterviewPage extends ActionClass {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = "menu_title_8")
+    @FindBy(id = "Interview")
     private WebElement interview;
 
-    @FindBy(id = "subChildTitle_8_0")
+    @FindBy(id = "AddCandidate")
     private WebElement addCandidate;
 
 
-    public void selectInterview() {
+    public void selectInterview() throws InterruptedException {
+        Thread.sleep(1000);
         interview.click();
     }
 
