@@ -42,8 +42,7 @@ public class Testassignment extends Baseclass {
 //        addCandidatePage.addExperienceMonth(input.get("addExperienceMonth"));
 //        addCandidatePage.addRelevantExpYear(input.get("addRelevantExpYear"));
 //        addCandidatePage.addRelevantExpMonth(input.get("addRelevantExpMonth"));
-       // addCandidatePage.setLastAppraisal();
-        addCandidatePage.selectYearMonthAndDay();
+       addCandidatePage.setLastAppraisal();
 
 
 

@@ -137,31 +137,24 @@ public class AddCandidatePage extends ActionClass {
         dropdown.selectByVisibleText(text);
     }
 
-    public void setLastAppraisal() {
+    public void setLastAppraisal() throws InterruptedException {
         lastAppraisal.click();
-    }
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("p-datepicker-group-container")));
+       String monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
+        System.out.println(monthYear);
+        String month = monthYear.split(" ")[0].trim();
+        String year = monthYear.split(" ")[1].trim();
 
-    public void selectYearMonthAndDay() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        waitElementVisible(lastAppraisal,10); // Replace with the actual ID
-        lastAppraisal.click();
-
-
-        while (true) {
-            WebElement monthYearElement = driver.findElement(By.xpath("(//div[@class='p-datepicker-title ng-tns-c2639595829-5'])[1]"));
-            String monthYear = monthYearElement.getText();
-
-            if (monthYear.contains("June 2023")) {
-                break;
-            } else {
-                WebElement nextButton = driver.findElement(By.xpath("//button[@class='p-datepicker-next']"));
-                nextButton.click();
-                wait.until(ExpectedConditions.stalenessOf(monthYearElement)); //
-            }
+        while(!(month.equals("June")) && year.equals("2023")){
+            Thread.sleep(1000);
+            driver.findElement(By.xpath("//button[@class='p-ripple p-element p-datepicker-prev p-link ng-tns-c2639595829-5 ng-star-inserted']")).click();
+             monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
+            System.out.println(monthYear);
+            month = monthYear.split(" ")[0].trim();
+            year = monthYear.split(" ")[0].trim();
         }
-
-        // Select the date (June 5, 2023)
-        WebElement dateElement = driver.findElement(By.xpath("//a[text()='5']"));
-        dateElement.click();
+        driver.findElement(By.xpath("(//span[text()='6'])[1]")).click();
     }
+
+
 }
