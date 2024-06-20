@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
 public class AddCandidatePage extends ActionClass {
     public AddCandidatePage(WebDriver driver) {
@@ -34,13 +33,13 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(id = "candidateDetail-contactedPlatform")
     private WebElement platform;
 
-    @FindBy(id = "timedragon_id_12731")
+    @FindBy(xpath = "(//app-autocomplete-multiselect//div//div//input)[1]")
     private WebElement appliedFor;
 
-    @FindBy(xpath = "(//input[@id='timedragon_id_12731'])[2]")
+    @FindBy(xpath = "(//app-autocomplete-multiselect//div//div//input)[2]")
     private WebElement designation;
 
-    @FindBy(xpath = "(//input[@id='timedragon_id_12731'])[3]")
+    @FindBy(xpath = "(//app-autocomplete-multiselect//div//div//input)[3]")
     private WebElement skillSet;
 
     @FindBy(id = "upload-resume")
@@ -67,27 +66,25 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(xpath = "//button[normalize-space()='2023']")
     private WebElement selectYear;
 
-    @FindBy(id = "candidateDetail-workingDays")
-    private WebElement wrkingday;
-
+    @FindBy(id="candidateDetail-workingDays")
+    private WebElement lastcompanydays;
     @FindBy(id="Last Working Date")
-    private WebElement lastworking;
+    private WebElement lastworkindate;
 
     @FindBy(id="candidateDetail-currentSalary")
-    private WebElement currentSalary;
+    private WebElement currentsal;
 
     @FindBy(id="candidateDetail-expectedtSalary")
-    private WebElement expectedSalary;
+    private WebElement expasal;
 
     @FindBy(id="candidateDetail-noticePeriod")
     private WebElement notice;
 
     @FindBy(id="Expected Joining Date")
-    private WebElement exptDate;
+    private WebElement expectedJoinDate;
 
-    @FindBy(id="candidate_detail_submit_btn_3241")
-    private WebElement send;
-
+    @FindBy(id = "candidate_detail_submit_btn_3241")
+    private WebElement sendForScreen;
 
     public void enterCandidateName(String cadName) {
         waitElementVisible(name, 10);
@@ -115,7 +112,6 @@ public class AddCandidatePage extends ActionClass {
     }
 
     public void enterAppliedForTeam(String text2) throws InterruptedException {
-        waitElementClickable(appliedFor,5);
         appliedFor.sendKeys(text2);
         waitElementVisible(searchResult, 8);
         searchResult.click();
@@ -127,8 +123,10 @@ public class AddCandidatePage extends ActionClass {
         searchResult.click();
     }
 
-    public void enterSkillSet(String text4) {
+    public void enterSkillSet(String text4) throws InterruptedException {
+        Thread.sleep(1000);
         skillSet.sendKeys(text4);
+        Thread.sleep(1000);
     }
 
     public void setUploadCv() throws InterruptedException {
@@ -164,9 +162,8 @@ public class AddCandidatePage extends ActionClass {
 
     public void setLastAppraisal(String mnth, String yer) throws InterruptedException {
         lastAppraisal.click();
-        selectDateInCalender(mnth,yer);
+        selectDateInCalender(mnth, yer);
     }
-
     public void selectDateInCalender(String mnth, String yer) throws InterruptedException {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("p-datepicker-group-container")));
         String monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
@@ -176,7 +173,7 @@ public class AddCandidatePage extends ActionClass {
 
         while(!(month.equals(mnth)) && year.equals(yer)){
             Thread.sleep(1000);
-            driver.findElement(By.xpath("/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/button[1]")).click();
+            driver.findElement(By.xpath("//button[@class='p-ripple p-element p-datepicker-prev p-link ng-tns-c2639595829-5 ng-star-inserted']")).click();
             monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
             System.out.println(monthYear);
             month = monthYear.split(" ")[0].trim();
@@ -184,25 +181,27 @@ public class AddCandidatePage extends ActionClass {
         }
         driver.findElement(By.xpath("(//span[text()='6'])[1]")).click();
     }
-    public void workingDaysInLastCompany(String days) throws InterruptedException {
-        Select dropdown = new Select(wrkingday);
+
+    public void workingDaysInLastCompany(String text) throws InterruptedException {
+        Select dropdown = new Select(lastcompanydays);
         Thread.sleep(1000);
-        dropdown.selectByVisibleText(days);
+        dropdown.selectByVisibleText(text);
     }
 
     public void setLastworkingDate(String mnth, String yer) throws InterruptedException {
-        lastworking.click();
+        lastworkindate.click();
         selectDateInCalender(mnth, yer);
     }
 
-    public void setCurrentSalary(String text){
-        currentSalary.sendKeys(text);
+    public void setCurrentSalary(String text) throws InterruptedException {
+        currentsal.sendKeys(text);
+        Thread.sleep(500);
     }
 
-    public void setExpectedSalary(String text){
-        expectedSalary.sendKeys(text);
+    public void setExpectedSalary(String text) throws InterruptedException {
+        expasal.sendKeys(text);
+        Thread.sleep(500);
     }
-
     public void setNoticePeriod(String text) throws InterruptedException {
         Select dropdown = new Select(notice);
         Thread.sleep(1000);
@@ -210,13 +209,13 @@ public class AddCandidatePage extends ActionClass {
     }
 
     public void setExpectedJoiningDate(String mnth, String yer) throws InterruptedException {
-        exptDate.click();
+        expectedJoinDate.click();
         selectDateInCalender(mnth, yer);
     }
 
-    public void selectSendForScreening(){
-        send.click();
-
-
+    public void selectSendForScreening() throws InterruptedException {
+        sendForScreen.click();
+        Thread.sleep(5000);
     }
+
 }

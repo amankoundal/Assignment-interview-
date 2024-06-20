@@ -4,9 +4,9 @@
     "Ankit Babbar": "CHM/2022/469",
     "Devinder": "CHM/2021/382",
     "password": "123456",
-    "candidateName": "amanqqqqqqqqq",
-    "candidateEmail": "Testqwerty@gmail.com",
-    "candidatePhoneNo": "0000000000",
+    "candidateName": "amanAssignment",
+    "candidateEmail": "amantestAssigns@gmail.com",
+    "candidatePhoneNo": "3333333335",
     "platform": " INDEED",
     "appliedForTeam": "QA",
     "designation": "Associate QA Engineer",
@@ -25,7 +25,11 @@
     "currentSalary": "10000",
     "expectedSalary": "20000",
     "noticePeriod": "30 Days",
-    "selectpages": "100"
+    "selectpages": "100",
+    "interviewPlatform": " Face to face ",
+    "roundType": " Technical Round ",
+    "selectTeam": "Android",
+    "liveStatus": "Rejected"
 
   }
 ]
