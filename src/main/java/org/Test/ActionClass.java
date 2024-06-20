@@ -29,9 +29,19 @@ public class ActionClass {
 
     }
 
+    public void waitElementClickable(WebElement b, int c) {
+        WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(c));
+        w.until(ExpectedConditions.elementToBeClickable(b));
+
+    }
+
     public void scrollPage() throws InterruptedException {
         JavascriptExecutor js=  (JavascriptExecutor)driver;
         js.executeScript("window.scrollBy(0,600)") ;
         Thread.sleep(2000);
     }
+
+
+
+
 }

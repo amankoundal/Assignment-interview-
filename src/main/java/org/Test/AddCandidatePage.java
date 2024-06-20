@@ -34,13 +34,13 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(id = "candidateDetail-contactedPlatform")
     private WebElement platform;
 
-    @FindBy(id = "candidateDetail-appliedForTeam")
+    @FindBy(id = "timedragon_id_12731")
     private WebElement appliedFor;
 
-    @FindBy(id = "candidateDetail-designation")
+    @FindBy(xpath = "(//input[@id='timedragon_id_12731'])[2]")
     private WebElement designation;
 
-    @FindBy(id = "candidateDetail-skillSet")
+    @FindBy(xpath = "(//input[@id='timedragon_id_12731'])[3]")
     private WebElement skillSet;
 
     @FindBy(id = "upload-resume")
@@ -67,6 +67,28 @@ public class AddCandidatePage extends ActionClass {
     @FindBy(xpath = "//button[normalize-space()='2023']")
     private WebElement selectYear;
 
+    @FindBy(id = "candidateDetail-workingDays")
+    private WebElement wrkingday;
+
+    @FindBy(id="Last Working Date")
+    private WebElement lastworking;
+
+    @FindBy(id="candidateDetail-currentSalary")
+    private WebElement currentSalary;
+
+    @FindBy(id="candidateDetail-expectedtSalary")
+    private WebElement expectedSalary;
+
+    @FindBy(id="candidateDetail-noticePeriod")
+    private WebElement notice;
+
+    @FindBy(id="Expected Joining Date")
+    private WebElement exptDate;
+
+    @FindBy(id="candidate_detail_submit_btn_3241")
+    private WebElement send;
+
+
     public void enterCandidateName(String cadName) {
         waitElementVisible(name, 10);
         name.sendKeys(cadName);
@@ -86,12 +108,14 @@ public class AddCandidatePage extends ActionClass {
         scrollPage();
     }
 
-    public void selectPlaform(String text) {
+    public void selectPlaform(String text) throws InterruptedException {
         Select dropdown = new Select(platform);
         dropdown.selectByVisibleText(text);
+        Thread.sleep(1000);
     }
 
     public void enterAppliedForTeam(String text2) throws InterruptedException {
+        waitElementClickable(appliedFor,5);
         appliedFor.sendKeys(text2);
         waitElementVisible(searchResult, 8);
         searchResult.click();
@@ -111,6 +135,7 @@ public class AddCandidatePage extends ActionClass {
 
         String filePath = System.getProperty("user.dir") + "/src/main/java/Resource/functionalsample.pdf";
         fileUpload.sendKeys(filePath);
+        Thread.sleep(2000);
     }
 
     public void addExperienceYear(String text) throws InterruptedException {
@@ -137,24 +162,61 @@ public class AddCandidatePage extends ActionClass {
         dropdown.selectByVisibleText(text);
     }
 
-    public void setLastAppraisal() throws InterruptedException {
+    public void setLastAppraisal(String mnth, String yer) throws InterruptedException {
         lastAppraisal.click();
+        selectDateInCalender(mnth,yer);
+    }
+
+    public void selectDateInCalender(String mnth, String yer) throws InterruptedException {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("p-datepicker-group-container")));
-       String monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
+        String monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
         System.out.println(monthYear);
         String month = monthYear.split(" ")[0].trim();
         String year = monthYear.split(" ")[1].trim();
 
-        while(!(month.equals("June")) && year.equals("2023")){
+        while(!(month.equals(mnth)) && year.equals(yer)){
             Thread.sleep(1000);
-            driver.findElement(By.xpath("//button[@class='p-ripple p-element p-datepicker-prev p-link ng-tns-c2639595829-5 ng-star-inserted']")).click();
-             monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
+            driver.findElement(By.xpath("/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/button[1]")).click();
+            monthYear= driver.findElement(By.className("p-datepicker-title")).getText();
             System.out.println(monthYear);
             month = monthYear.split(" ")[0].trim();
             year = monthYear.split(" ")[0].trim();
         }
         driver.findElement(By.xpath("(//span[text()='6'])[1]")).click();
     }
+    public void workingDaysInLastCompany(String days) throws InterruptedException {
+        Select dropdown = new Select(wrkingday);
+        Thread.sleep(1000);
+        dropdown.selectByVisibleText(days);
+    }
+
+    public void setLastworkingDate(String mnth, String yer) throws InterruptedException {
+        lastworking.click();
+        selectDateInCalender(mnth, yer);
+    }
+
+    public void setCurrentSalary(String text){
+        currentSalary.sendKeys(text);
+    }
+
+    public void setExpectedSalary(String text){
+        expectedSalary.sendKeys(text);
+    }
+
+    public void setNoticePeriod(String text) throws InterruptedException {
+        Select dropdown = new Select(notice);
+        Thread.sleep(1000);
+        dropdown.selectByVisibleText(text);
+    }
+
+    public void setExpectedJoiningDate(String mnth, String yer) throws InterruptedException {
+        exptDate.click();
+        selectDateInCalender(mnth, yer);
+    }
+
+    public void selectSendForScreening(){
+        send.click();
 
 
+    }
 }

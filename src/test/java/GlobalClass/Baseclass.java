@@ -24,6 +24,8 @@ public class Baseclass extends Listeners{
     public InterviewPage interview;
     public AddCandidatePage addCandidatePage;
 
+    public CandidateListPage candidateListPage;
+
     @BeforeClass
     public void WebDriverConfigure() throws IOException {
 
@@ -35,7 +37,7 @@ public class Baseclass extends Listeners{
         this.logIn= new Loginpage(driver);
         interview = new InterviewPage(driver);
         addCandidatePage = new AddCandidatePage(driver);
-
+        candidateListPage = new CandidateListPage(driver);
     }
     public List<HashMap<String, String>> getJsonDataTOMap(String filePath) throws IOException {
         // read json to String

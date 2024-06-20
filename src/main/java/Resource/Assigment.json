@@ -17,6 +17,15 @@
     "addRelevantExpMonth": "7",
     "lastAppraisalYear": "2023",
     "lastAppraisalMonth": "Jun",
-    "lastAppraisalDay": "15"
+    "lastAppraisalDay": "15",
+    "day": "6",
+    "month": "June",
+    "year": "2024",
+    "lastWorkingDays": "4 Days Per Week",
+    "currentSalary": "10000",
+    "expectedSalary": "20000",
+    "noticePeriod": "30 Days",
+    "selectpages": "100"
+
   }
 ]

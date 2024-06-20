@@ -25,14 +25,14 @@ public class Testassignment extends Baseclass {
 
     }
 
-    @Test(dataProvider = "getData", dependsOnMethods = "logIn")
-    public void interviewOption(HashMap<String, String> input) throws InterruptedException {
-        interview.selectInterview();
-        interview.selectAddCandidate();
-        addCandidatePage.enterCandidateName(input.get("candidateName"));
-        addCandidatePage.enterCandidateEmail(input.get("candidateEmail"));
-        addCandidatePage.enterCandidatePhoneNO(input.get("candidatePhoneNo"));
-        addCandidatePage.selectVerify();
+//    @Test(dataProvider = "getData", dependsOnMethods = "logIn")
+//    public void interviewOption(HashMap<String, String> input) throws InterruptedException {
+//        interview.selectInterview();
+//        interview.selectAddCandidate();
+//        addCandidatePage.enterCandidateName(input.get("candidateName"));
+//        addCandidatePage.enterCandidateEmail(input.get("candidateEmail"));
+//        addCandidatePage.enterCandidatePhoneNO(input.get("candidatePhoneNo"));
+//        addCandidatePage.selectVerify();
 //        addCandidatePage.selectPlaform(input.get("platform"));
 //        addCandidatePage.enterAppliedForTeam(input.get("appliedForTeam"));
 //        addCandidatePage.enterDesignation(input.get("designation"));
@@ -42,13 +42,25 @@ public class Testassignment extends Baseclass {
 //        addCandidatePage.addExperienceMonth(input.get("addExperienceMonth"));
 //        addCandidatePage.addRelevantExpYear(input.get("addRelevantExpYear"));
 //        addCandidatePage.addRelevantExpMonth(input.get("addRelevantExpMonth"));
-       addCandidatePage.setLastAppraisal();
+//        addCandidatePage.setLastAppraisal(input.get("month"),input.get("year"));
+//        addCandidatePage.workingDaysInLastCompany(input.get("lastWorkingDays"));
+//        addCandidatePage.setLastworkingDate(input.get("month"),input.get("year"));
+//        addCandidatePage.setCurrentSalary(input.get("currentSalary"));
+//        addCandidatePage.setExpectedSalary(input.get("expectedSalary"));
+//        addCandidatePage.setNoticePeriod(input.get("noticePeriod"));
+//       // addCandidatePage.setExpectedJoiningDate(input.get("month"),input.get("year"));
+//        addCandidatePage.selectSendForScreening();
+//    }
 
 
+    @Test(dataProvider = "getData", dependsOnMethods = "logIn")
+    public void candidateRecord(HashMap<String, String> input) throws InterruptedException {
+        interview.selectInterview();
+        candidateListPage.selectpages();
+        candidateListPage.countRecord();
 
 
     }
-
 
     @DataProvider
     public Object[][] getData() throws IOException {
